@@ -1,0 +1,24 @@
+  
+  <odoo>
+  
+  <!-- Report Template -->
+    <template id="report_product_detail_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="page">
+
+                        <h2>Product Detail</h2>
+                        <p><strong>Product:</strong> <span t-field="o.name"/></p>
+                        <p><strong>Price:</strong> <span t-field="o.price"/></p>
+                        <p><strong>Quantity:</strong> <span t-field="o.quantity"/></p>
+                        <p><strong>Discount(%):</strong> <span t-field="o.discount"/>%</p>
+                        <p><strong>Amount:</strong> <span t-field="o.amount"/></p>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    </odoo>

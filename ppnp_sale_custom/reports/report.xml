@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+ <!-- PDF Report Action -->
+    <record id="action_report_product_detail" model="ir.actions.report">
+        <field name="name">Product Detail</field>
+        <field name="model">sale.product</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ppnp_sale_custom.report_product_detail_template</field>
+        <field name="report_file">ppnp_sale_custom.report_product_detail_template</field>
+        <field name="binding_model_id" ref="model_sale_product"/>
+        <field name="binding_type">report</field>
+    </record>
+
+<!-- EXCEL Report Action -->
+     <record id="action_report_product_detail_xlsx" model="ir.actions.report">
+        <field name="name">Product Detail XLSX</field>
+        <field name="model">sale.product</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">ppnp_sale_custom.report_product_detail_xlsx</field>
+        <field name="report_file">ppnp_sale_custom.report_product_detail_xlsx</field>
+        <field name="binding_model_id" ref="ppnp_sale_custom.model_sale_product"/>
+        <field name="binding_type">report</field>
+     </record>
+
+
+</odoo>

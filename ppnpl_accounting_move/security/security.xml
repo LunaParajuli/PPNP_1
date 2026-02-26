@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="group_contact_manager_special" model="res.groups">
+        <field name="name">Contact Edit: Master Access</field>     
+    </record>
+</odoo>

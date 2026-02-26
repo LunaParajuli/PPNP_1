@@ -1,0 +1,34 @@
+<odoo>
+    <record id="view_order_form_inherit_transport" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.transport</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Transport Detail" name="transport_page">
+
+                    <group string="Linked Delivery">
+                       <!--  <group>
+                            <field name="transport_picking_id"
+                                   readonly="state in ('done', 'cancel')"
+                                   options="{'no_create': True, 'no_edit': True}"/>
+                        </group> -->
+                    </group>
+
+                    <group string="Transport Information"
+                           invisible="not transport_picking_id">
+                        <group>
+                            <field name="vehicle_name" readonly="1"/>
+                            <field name="driver_name" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="registration_number" readonly="1"/>
+                            <field name="dispatch_date" readonly="1"/>
+                        </group>
+                    </group>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

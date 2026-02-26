@@ -1,0 +1,31 @@
+<!--    Creating a notebook in inventory transfer named transfer detail and added the following fields in it:
+1. Vehicle Number
+2. Driver Name
+3. Registration number
+4. Dispatch Date   -->
+
+<odoo>
+
+    <record id="view_picking_form_inherit_transport" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.transport</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Transport Detail" name="transport_detail">
+                    <group>
+                        <group>
+                            <field name="vehicle_name"/>
+                            <field name="driver_name"/>
+                        </group>
+                        <group>
+                            <field name="registration_number"/>
+                            <field name="dispatch_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

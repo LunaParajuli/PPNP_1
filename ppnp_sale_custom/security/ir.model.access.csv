@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_product_user,sale.product.user,model_sale_product,ppnp_sale_custom.group_ppnp_user,1,1,1,0
+access_sale_product_manager,sale.product.manager,model_sale_product,ppnp_sale_custom.group_ppnp_manager,1,1,1,1
+access_sale_order_line_custom_user,sale.order.line.custom.user,model_sale_order_line_custom,ppnp_sale_custom.group_ppnp_user,1,0,0,0
+access_sale_order_line_custom_manager,sale.order.line.custom.manager,model_sale_order_line_custom,ppnp_sale_custom.group_ppnp_manager,1,1,1,1

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_ppnp_custom_inventory" model="ir.actions.act_window">
+        <field name="name">PPNP Custom Operations</field>
+        <field name="res_model">stock.picking.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_ppnp_custom_root"
+              name="PPNP Custom"
+              parent="stock.menu_stock_root"
+              sequence="10"/>
+
+    <menuitem id="menu_ppnp_custom_sub1"
+              name="Inventory Detail"
+              parent="menu_ppnp_custom_root"
+              action="action_ppnp_custom_inventory_detail"
+              sequence="1"/>
+
+    <menuitem id="menu_ppnp_custom_sub2"
+              name="CRM Detail"
+              parent="menu_ppnp_custom_root"
+              action="action_ppnp_custom_inventory"
+              sequence="2"/>
+
+    <menuitem id="menu_ppnp_custom_sub3"
+              name="Sales Detail"
+              parent="menu_ppnp_custom_root"
+              action="action_ppnp_custom_inventory"
+              sequence="3"/>
+
+</odoo>

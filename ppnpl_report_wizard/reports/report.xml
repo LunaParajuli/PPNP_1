@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record id="action_report_salesperson_pdf" model="ir.actions.report">
+    <field name="name">Salesperson Performance</field>
+    <field name="model">sale.order.line</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">ppnpl_report_wizard.report_salesperson_template</field>
+    <field name="report_file">ppnpl_report_wizard.report_salesperson_template</field>
+  </record>
+
+
+</odoo>
+
+

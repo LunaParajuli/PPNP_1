@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_ppnp_custom_inventory_detail" model="ir.actions.act_window">
+        <field name="name">PPNP Custom Inventory Details</field>
+        <field name="res_model">inventory.detail</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="context">{
+            'search_default_my_company': 1, 
+            'search_default_group_by_company': 1}
+        </field>
+       
+    </record>
+
+
+<!-- list view -->
+    <record id="view_inventory_detail_list" model="ir.ui.view">
+        <field name="name">inventory.detail.list</field>
+        <field name="model">inventory.detail</field>
+        <field name="arch" type="xml">
+            <list string="Inventory Details">
+                <field name="date"/>
+                <field name="i_name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </list>
+        </field>
+    </record>
+  
+
+  <!-- Form View -->
+    <record id="view_inventory_detail_form" model="ir.ui.view">
+        <field name="name">inventory.detail.form</field>
+        <field name="model">inventory.detail</field>
+        <field name="arch" type="xml">
+            <form string="Inventory Details">
+                <sheet>
+                    <group>
+                        <field name="i_name"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+     <!-- ================= SEARCH VIEW ================= -->
+    <record id="view_inventory_detail_search" model="ir.ui.view">
+        <field name="name">inventory.detail.search</field>
+        <field name="model">inventory.detail</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- allows search typing by name -->
+                <field name="i_name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+               
+              <!-- Filter for current user's company -->
+               <filter string="My Company"
+                    name="my_company"
+                    domain="[('company_id','in',allowed_company_ids)]"/>
+                 <!-- Group by company for better organization -->
+                <filter string="Group by Company" name="group_by_company" context="{'group_by': 'company_id'}"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>
