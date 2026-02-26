@@ -2,6 +2,7 @@ from odoo import models, fields
 from odoo.exceptions import ValidationError
 from datetime import timedelta
 from num2words import num2words
+import base64
 
 
 class SalespersonReportWizard(models.TransientModel):
@@ -32,24 +33,48 @@ class SalespersonReportWizard(models.TransientModel):
             lines, data={'wizard_id': self.id}
         )
 
+    def action_generate_excel(self):
+        self.ensure_one()
+        lines = self._get_report_lines()
+        if not lines:
+            raise ValidationError("No sales found for this salesperson in the selected period.")
+        report_model = self.env['report.ppnpl_report_wizard.report_salesperson_excel']
+        values = report_model._get_report_values(None, data={'wizard_id': self.id})
+        xlsx_data = report_model._generate_excel(values)
+        attachment = self.env['ir.attachment'].create({
+            'name': 'Salesperson_Report.xlsx',
+            'type': 'binary',
+            'datas': base64.b64encode(xlsx_data),
+            'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+            'target': 'self',
+        }
+
 
 class SalespersonReportPDF(models.AbstractModel):
     _name = 'report.ppnpl_report_wizard.report_salesperson_template'
     _description = 'Salesperson Report PDF'
 
     def _amount_to_words(self, amount):
+        digit_map = {
+            '0': 'Zero', '1': 'One', '2': 'Two', '3': 'Three', '4': 'Four',
+            '5': 'Five', '6': 'Six', '7': 'Seven', '8': 'Eight', '9': 'Nine'
+        }
         whole = int(amount)
-        fraction = round((amount - whole) * 100)
+        fraction_str = "{:02d}".format(int(round((amount - whole) * 100)))
         words = num2words(whole, lang='en_IN').title()
-        if fraction:
-            words += ' And ' + num2words(fraction, lang='en_IN').title() + ' Paisa'
+        if int(fraction_str) > 0:
+            paisa_words = " ".join([digit_map[d] for d in fraction_str])
+            words += ' And ' + paisa_words + ' Paisa'
         return words + ' Only'
 
     def _get_report_values(self, docids, data=None):
         wizard = self.env['salesperson.report.wizard'].browse(data['wizard_id'])
         lines = wizard._get_report_lines()
         grand_total = sum(lines.mapped('price_total'))
-
         return {
             'docs': lines,
             'salesperson_name': wizard.user_id.name,
