@@ -10,8 +10,6 @@ from openpyxl.drawing.spreadsheet_drawing import AnchorMarker, OneCellAnchor
 from openpyxl.drawing.xdr import XDRPositiveSize2D
 
 from PIL import Image as PILImage
-
-
 _logger = logging.getLogger(__name__)
 
 
