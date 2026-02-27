@@ -23,47 +23,52 @@
                         </thead>
                         <tbody>
                             <t t-foreach="docs" t-as="line">
-                                <tr>
-                                    <td class="text-center"><t t-esc="line_index + 1"/></td>
-                                    <td class="text-center">
+                                <tr >
+                                    <td class="text-center align-middle" ><t t-esc="line_index + 1"/></td>
+                                    <td class="text-center ">
                                         <span t-if="line.product_id.image_128" 
                                               t-field="line.product_id.image_128" 
                                               t-options='{"widget": "image", "class": "img-fluid", "style": "max-height: 45px; width: auto;"}'/>
                                     </td>
-                                    <td><span t-field="line.product_id.name"/></td>
-                                    <td class="text-end"><span t-field="line.product_uom_qty"/></td>
-                                    <td class="text-end">
+                                    <td class="text-center align-middle"><span t-field="line.product_id.name"/></td>
+                                    <td class="text-center align-middle"><span t-field="line.product_uom_qty"/></td>
+                                    <td class="text-center align-middle">
                                         <span t-field="line.price_unit" />
-                                              <!-- t-options='{"widget": "monetary", "display_currency": line.currency_id}' -->
                                     </td>
-                                    <td class="text-end">
+                                    <td class="text-center align-middle">
                                         <span t-esc="', '.join(map(lambda x: x.name, line.tax_ids))"/>
                                     </td>
-                                    <td class="text-end">
-                                        <!-- <span t-field="line.price_total"/> -->
+                                    <td class="text-center align-middle">
                                         <t t-esc="'{0:,.2f}'.format(line.price_total)"/>
                                     </td>
                                 </tr>
                             </t>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="6" class="text-end"><strong>Grand Total (Rs)</strong></td>
-                                <td class="text-end">
-                                    <strong>
-                                       <span t-esc="grand_total"/>
-                                        <!-- t-options='{"widget": "monetary", "display_currency": docs[0].currency_id}' -->
-                                    </strong>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="7" class="text-end">
-                                    <strong>Amount in Words: </strong>
-                                    <span t-esc="amount_in_words"/>
-                                </td>
-                            </tr>
-                        </tfoot>
+                                  <tr class="border-black o_total">
+    <td colspan="6" class="text-center align-middle py-2">
+        <strong>Grand Total (Rs)</strong>
+    </td>
+    <td class="text-end align-middle py-2">
+        <strong>
+            <span t-esc="grand_total" 
+                  t-options='{"widget": "float", "precision": 2}'/>
+        </strong>
+    </td>
+</tr>
+
+                        </tbody>         
+                       
                     </table>
+
+                    <div class="clearfix">
+                        <div id="total ms-auto" class="row">
+                        <table>
+                                        <p colspan="7" class="text-center align-middle">
+                                            <strong>Amount in Words: </strong>
+                                            <span t-esc="amount_in_words"/>
+                                        </p>
+                         </table>
+                        </div>
+                    </div>
                     
                     <div class="mt-4 text-muted small">
                         <p><strong>Generated on: </strong> <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>
